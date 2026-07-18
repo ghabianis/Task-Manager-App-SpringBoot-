@@ -1,0 +1,31 @@
+services:  
+  db:
+    image: postgres:16-alpine
+    container_name: postgres_db
+    restart: unless-stopped
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: demouser
+      POSTGRES_PASSWORD: demosecretpassword
+      POSTGRES_DB: demo
+    ports:
+      - "5332:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  springServer:
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile.prod
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5422/mydb
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    
+
+
+volumes:
+  pgdata:
+    driver: local
