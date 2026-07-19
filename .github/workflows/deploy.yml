@@ -15,13 +15,16 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Run my script
-        uses: actions/script@v4
+      - name: Debug secret presence
         env:
-          # This maps your GitHub secret to a temporary environment variable
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-            echo "$DOCKER_USERNAME"
-            
+            DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        run: |
+            if [ -z "$DOCKER_USERNAME" ]; then
+              echo "DOCKER_USERNAME is EMPTY"
+            else
+              echo "DOCKER_USERNAME is SET"
+            fi
+
       - name: Debug secret presence
         run: |
           if [ -z "${{ secrets.DOCKER_USERNAME }}" ]; then
