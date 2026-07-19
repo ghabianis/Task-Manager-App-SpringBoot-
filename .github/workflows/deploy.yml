@@ -8,7 +8,7 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment: Configure Spring Envs
+    environment: Spring Envs
 
     steps:
       # Step 1: Check out the code
@@ -17,7 +17,7 @@ jobs:
 
       - name: Debug secret presence
         env:
-            DOCKER_USERNAME: ${{ DOCKER_USERNAME }}
+            DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         run: |
             if [ -z "$DOCKER_USERNAME" ]; then
               echo "DOCKER_USERNAME is EMPTY"
