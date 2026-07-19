@@ -15,6 +15,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Debug secret presence
+        run: |
+          if [ -z "${{ secrets.DOCKER_USERNAME }}" ]; then
+            echo "DOCKER_USERNAME is EMPTY"
+          else
+            echo "DOCKER_USERNAME is SET"
+          fi
+
       # Step 2: Set up Java environment to run verification if needed
       - name: Set up JDK 26
         uses: actions/setup-java@v4
