@@ -17,7 +17,7 @@ jobs:
 
       - name: Debug secret presence
         env:
-            DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+            DOCKER_USERNAME: ${{ DOCKER_USERNAME }}
         run: |
             if [ -z "$DOCKER_USERNAME" ]; then
               echo "DOCKER_USERNAME is EMPTY"
