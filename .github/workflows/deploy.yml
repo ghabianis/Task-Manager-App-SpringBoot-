@@ -58,9 +58,10 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/springboot-app:latest
 
       # Step 5: Trigger Deploy on Render
-      - name: Deploy to Render
-        uses: jorgelnjunior/render-deploy@v1.5.0
-        with:
-          service_id: ${{ secrets.RENDER_SERVICE_ID }}
-          api_key: ${{ secrets.RENDER_API_KEY }}
-          wait_deploy: true
+      - name: Deploy to Render (image-based)
+        run: |
+          curl -X POST \
+            "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys" \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{"clearCache": "do_not_clear"}'
